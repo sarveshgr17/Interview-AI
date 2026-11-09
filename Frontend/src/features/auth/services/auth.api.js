@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "axios"
 
 const api = axios.create({
     baseURL: "http://localhost:3000",
@@ -6,60 +6,43 @@ const api = axios.create({
 })
 
 export async function register({ username, email, password }) {
-  
-  try{
-      const response = await api.post("/api/auth/register", {
-          username, email, password,
-        });
-        
+    try {
+        const response = await api.post('/api/auth/register', {
+            username, email, password
+        })
         return response.data
-
-    }catch(err){
-
+    } catch (err) {
         console.log(err)
-
+        throw err
     }
 }
 
-export async function login({ email, password}) {
-
-    try{
-
-        const response = await api.post("/api/auth/login",{
+export async function login({ email, password }) {
+    try {
+        const response = await api.post("/api/auth/login", {
             email, password
         })
-
         return response.data
-
-    }catch(err){
+    } catch (err) {
         console.log(err)
+        throw err
     }
-    
 }
 
 export async function logout() {
-
-    try{
+    try {
         const response = await api.get("/api/auth/logout")
-
         return response.data
-
-    }catch(err){
+    } catch (err) {
         console.log(err)
     }
-    
 }
 
 export async function getMe() {
-
-    try{
-
+    try {
         const response = await api.get("/api/auth/get-me")
-
         return response.data
-
-    }catch(err){
+    } catch (err) {
         console.log(err)
     }
-    
 }

@@ -1,18 +1,29 @@
-.button{
+.button {
     border: none;
     outline: none;
     padding-inline: 1.5rem;
     padding-block: 0.75rem;
     border-radius: 1rem;
     cursor: pointer;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 0.875rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
     transition: all 0.3s ease-in-out;
 
-    &.primary-button{
+    &.primary-button {
         background-color: #e1034d;
         color: white;
+
+        &:hover {
+            background-color: #ed155d;
+        }
     }
-    &:active{
-        transform: scale(0.98);
+
+    &:active {
+        transform: scale(0.96);
     }
 }
