@@ -8,44 +8,38 @@ export const useAuth = () => {
     const { user, setUser, loading, setLoading } = context
 
     const handleLogin = async ({ email, password }) => {
-        setLoading(true)
         try {
             const data = await login({ email, password })
             if (data?.user) {
                 setUser(data.user)
             }
-            return data
+            return { user: data?.user }
         } catch (err) {
-            console.log(err)
-        } finally {
-            setLoading(false)
+            const message = err.response?.data?.message || "Invalid email or password"
+            return { error: message }
         }
     }
 
     const handleRegister = async ({ username, email, password }) => {
-        setLoading(true)
         try {
             const data = await register({ username, email, password })
             if (data?.user) {
                 setUser(data.user)
             }
-            return data
+            return { user: data?.user }
         } catch (err) {
-            console.log(err)
-        } finally {
-            setLoading(false)
+            const message = err.response?.data?.message || "Registration failed. Please try again."
+            return { error: message }
         }
     }
 
     const handleLogout = async () => {
-        setLoading(true)
         try {
             await logout()
             setUser(null)
         } catch (err) {
-            console.log(err)
-        } finally {
-            setLoading(false)
+            console.error("Logout error:", err)
+            setUser(null)
         }
     }
 
@@ -57,7 +51,7 @@ export const useAuth = () => {
                     setUser(data.user)
                 }
             } catch (err) {
-                // Not authenticated yet
+                // Not authenticated yet - silent expected behavior
             } finally {
                 setLoading(false)
             }
